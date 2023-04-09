@@ -18,3 +18,7 @@ function draw() {
     squares[alienInvaders[i]].classList.add('invader')
   }
 }
+
+draw()
+
+squares[200].classList.add('shooter')
