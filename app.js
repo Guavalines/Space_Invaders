@@ -1,5 +1,6 @@
 const grid = document.querySelector('.grid')
 let currentShooterIndex = 202
+let width = 15
 
 for (let i = 0; i < 225; i++) {
   const square = document.createElement('div')
