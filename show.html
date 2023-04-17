@@ -1,0 +1,166 @@
+class Appointment < ApplicationRecord
+  belongs_to :dog
+
+  validates :scheduled_on, presence: true
+
+  scope :after, ->(day) { where("scheduled_on > ?", day) }
+  scope :deworming, -> { where(type: "Appointment::Deworming") }
+  scope :grooming, -> { where(type: "Appointment::Grooming") }
+  scope :vaccination, -> { where(type: "Appointment::Vaccination") }
+  scope :this_week, -> { where("scheduled_on BETWEEN :today AND :next_week", today: Date.current, next_week: Date.current.next_week) }
+  scope :this_month, -> { where("scheduled_on BETWEEN :next_week AND :next_month", next_week: Date.current.next_week + 1.day, next_month: Date.current.next_month) }
+
+  def title
+    self.class.name.gsub(/Appointment::/, "")
+  end
+
+  def soon?
+    (scheduled_on - Date.today) < 7
+  end
+
+  def interval
+    (scheduled_on - dog.born_on + 1).days
+  end
+
+  def next
+    self.class.next(self)
+  end
+
+  def has_next?(amount)
+    dog.appointments.where("scheduled_on > ?", scheduled_on).where(type: type).size > (amount - 1)
+  end
+
+  def self.next(reference)
+    new(
+      dog: reference.dog,
+      scheduled_on: reference.dog.born_on + next_appointment_in_days(reference.interval)
+    )
+  end
+
+  def self.next_appointment_in_days(interval)
+    next_initial_appointment_in_days(interval) || next_calculated_interval_appointment(interval)
+  end
+
+  def self.next_calculated_interval_appointment(interval)
+    # Chance for a bug here
+    result = self::INITIAL_APPOINTMENTS.last
+    result += self::INTERVAL while result < interval
+    result
+  end
+
+  def self.next_initial_appointment_in_days(interval)
+    self::INITIAL_APPOINTMENTS.find { |days| days > interval }
+  end
+end
+
+class Appointment::Deworming < Appointment
+  INTERVAL = 30.days
+  INITIAL_APPOINTMENTS = [
+    15.days, 30.days, 45.days, 106.days, 137.days, 167.days
+  ]
+
+  def description
+    "[] Deworm #{dog.name}"
+  end
+
+  def tip
+    "Don't forget to ask your vet about external parasites treatment once a month"
+  end
+end
+
+class Appointment::Grooming < Appointment
+  INTERVAL = 30.days
+  INITIAL_APPOINTMENTS = [183.days]
+
+  def description
+    "[] Groom #{dog.name}"
+  end
+
+  def tip
+    "Your pal may need extra care to maintain a beautiful, healthy skin and coat"
+  end
+end
+
+class Appointment::Vaccination < Appointment
+  INTERVAL = 365.days
+  INITIAL_APPOINTMENTS = [
+    61.days, 76.days, 91.days, 106.days, 122.days, 137.days, 152.days, 167.days, 183.days
+  ]
+
+  def description
+    "[] Vaccinate #{dog.name}"
+  end
+
+  def tip
+    "Each dog has unique needs, so please check with your vet about appropriate vaccines and times to vaccinate your pal"
+  end
+end
+
+class Schedule
+  attr_reader :dog
+
+  def initialize(dog, kept_count = 2, current_day = Date.today)
+    @dog = dog
+    @kept_count = kept_count
+    @current_day = current_day
+  end
+
+  def next_appointments
+    @dog
+      .appointments
+      .after(@current_day)
+      .order(scheduled_on: :asc)
+      .distinct(:type)
+    # + next 3
+  end
+
+  def update!
+    (@dew = Appointment::Deworming.next(@dog)).save! unless next_appointments.deworming.exists?
+    (@gro = Appointment::Grooming.next(@dog)).save! unless next_appointments.grooming.exists?
+    (@app = Appointment::Vaccination.next(@dog)).save! unless next_appointments.vaccination.exists?
+    @dog.reload
+
+    [
+      @dew || next_appointments.deworming.first,
+      @gro || next_appointments.grooming.first,
+      @app || next_appointments.vaccination.first
+    ].each do |appointment|
+      @dog.appointments << appointment.next unless appointment.has_next?(@kept_count - 1)
+    end
+  end
+end
+
+class Dog < ApplicationRecord
+  belongs_to :user
+  has_one_attached :photo
+  has_many :appointments
+
+  validates :name, :born_on, :photo, presence: true
+
+  def age_in_days
+    (Date.today - born_on).days
+  end
+
+  def dog
+    self
+  end
+
+  def interval
+    age_in_days
+  end
+
+  def age_display
+    case age_in_days.in_years
+    when 0..1
+      if age_in_days.in_months > 1
+        "#{age_in_days.in_months.floor} months"
+      else
+        "#{age_in_days.in_days.floor} days"
+      end
+    when 1..4
+      "#{age_in_days.in_years.floor} years and #{age_in_days.in_months.floor % 12} months"
+    when 4..Float::INFINITY
+      "#{age_in_days.in_years.floor} years"
+    end
+  end
+end
