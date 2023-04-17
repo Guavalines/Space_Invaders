@@ -45,7 +45,7 @@ function moveShooter(e) {
       if (currentShooterIndex % width < width -1) currentShooterIndex +=1
       break
   }
-  squares[currentShooterIndex].classList.add('shooter')
+  // squares[currentShooterIndex].classList.add('shooter')
 }
 document.addEventListener('keydown', moveShooter)
 
@@ -79,6 +79,12 @@ function moveInvaders() {
   if (squares[currentShooterIndex].classList.contains('invader', 'shooter')) {
     resultsDisplay.innerHTML = 'GAME OVER'
     clearInterval(invadersId)
+  }
+
+  for (let i = 0; i < alienInvaders.length; i++) {
+    if(alienInvaders[i] > squares.length) {
+      resultsDisplay.innerHTML = 'GAME OVER'
+    }
   }
 
 
