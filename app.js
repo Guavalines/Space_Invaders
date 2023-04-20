@@ -100,5 +100,12 @@ function shoot(e) {
     squares [currentLaserIndex].classList.remove('laser')
     currentLaserIndex -= width
     squares [currentLaserIndex].classList.add('laser')
+
+  }
+  switch(e.key) {
+    case 'ArrowUp':
+      laserId = setInterval(moveLaser, 100)
   }
 }
+
+document.addEventListener('keydown', shoot)
