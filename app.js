@@ -5,6 +5,7 @@ let width = 15
 let direction = 1
 let invadersId
 let goingRight = true
+let aliensRemoved = []
 
 for (let i = 0; i < 225; i++) {
   const square = document.createElement('div')
@@ -107,8 +108,10 @@ function shoot(e) {
       squares [currentLaserIndex].classList.add('boom')
 
       setTimeout(()=> squares[currentLaserIndex].classList.remove('boom'), 300)
-    }
+      clearInterval(laserId)
 
+      const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
+      aliensRemoved.push(alienRemoval)
   }
   switch(e.key) {
     case 'ArrowUp':
