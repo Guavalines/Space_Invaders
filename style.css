@@ -1,9 +1,10 @@
 .grid {
 	width: 300px;
 	height: 300px;
-	border: solid black 1px;
+	border: solid yellow 1px;
 	display: flex;
 	flex-wrap: wrap;
+  background-color: lightpink;
 }
 
 .grid div {
@@ -26,4 +27,13 @@
 
 .boom {
 	background-color: red;
+}
+
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
