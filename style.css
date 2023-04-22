@@ -13,14 +13,17 @@
 }
 
 .invader {
-	background-color: purple;
-	border-radius: 10px;
+  height: 100px;
+  width: 100px;
+  background-image: url("images/a2.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .shooter {
   height: 100px;
   width: 100px;
-  background-image: url("images/ss.png");
+  background-image: url("images/ss2.png");
   background-size: cover;
   background-position: center;
 }
