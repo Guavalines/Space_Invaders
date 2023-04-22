@@ -4,7 +4,7 @@
 	border: solid yellow 1px;
 	display: flex;
 	flex-wrap: wrap;
-  background-color: lightpink;
+  background-color: lightblue;
 }
 
 .grid div {
@@ -18,7 +18,11 @@
 }
 
 .shooter {
-	background-color: green;
+  height: 100px;
+  width: 100px;
+  background-image: url("images/ss.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .laser {
@@ -30,7 +34,7 @@
 }
 
 body {
-  background-color: black;
+  background-color: blue;
   display: flex;
   flex-direction: column;
   justify-content: center;
