@@ -91,10 +91,16 @@ function moveInvaders() {
     }
   }
 
+  if (aliensRemoved.length === alienInvaders.length) {
+    resultsDisplay.innerHTML = 'YOU WIN'
+  }
 
 }
 
+
+
 invadersId = setInterval(moveInvaders, 100)
+
 
 function shoot(e) {
   let laserId
