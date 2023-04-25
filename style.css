@@ -1,28 +1,28 @@
 .grid {
-	width: 300px;
-	height: 300px;
-	border: solid yellow 1px;
+	width: 600px;
+	height: 600px;
+	border: solid yellow 2px;
 	display: flex;
 	flex-wrap: wrap;
   background-color: lightblue;
 }
 
 .grid div {
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 }
 
 .invader {
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 200px;
   background-image: url("images/a2.png");
   background-size: cover;
   background-position: center;
 }
 
 .shooter {
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 200px;
   background-image: url("images/ss2.png");
   background-size: cover;
   background-position: center;
@@ -46,6 +46,6 @@ body {
 }
 
 #hi {
-  font-size: 100px;
+  font-size: 200px;
   color: yellowgreen;
 }
