@@ -29,7 +29,7 @@
 }
 
 .laser {
-	background-color: orange;
+  background-image: url("images/laser.png");
 }
 
 .boom {
