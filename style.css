@@ -4,7 +4,7 @@
 	border: solid yellow 2px;
 	display: flex;
 	flex-wrap: wrap;
-  background-color: white;
+  background-color: rgb(0, 221, 255);
 }
 
 .grid div {
@@ -21,19 +21,27 @@
 }
 
 .shooter {
+  background-image: url("images/ss2.png");
   height: 200px;
   width: 200px;
-  background-image: url("images/ss2.png");
   background-size: cover;
   background-position: center;
 }
 
 .laser {
   background-image: url("images/laser.png");
+  height: 200px;
+  width: 200px;
+  background-size: cover;
+  background-position: center;
 }
 
 .boom {
   background-image: url("images/boom.png");
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  width: 200px;
 }
 
 body {
