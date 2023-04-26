@@ -4,7 +4,7 @@
 	border: solid yellow 2px;
 	display: flex;
 	flex-wrap: wrap;
-  background-color: lightblue;
+  background-color: white;
 }
 
 .grid div {
@@ -37,7 +37,7 @@
 }
 
 body {
-  background-color: blue;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
