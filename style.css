@@ -1,6 +1,6 @@
 .grid {
-	width: 600px;
-	height: 600px;
+	width: 450px;
+	height: 450px;
 	border: solid yellow 2px;
 	display: flex;
 	flex-wrap: wrap;
@@ -8,13 +8,13 @@
 }
 
 .grid div {
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 }
 
 .invader {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   background-image: url("images/a2.png");
   background-size: cover;
   background-position: center;
@@ -22,16 +22,16 @@
 
 .shooter {
   background-image: url("images/ss2.png");
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   background-size: cover;
   background-position: center;
 }
 
 .laser {
   background-image: url("images/laser.png");
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   background-size: cover;
   background-position: center;
 }
@@ -40,8 +40,8 @@
   background-image: url("images/boom.png");
   background-size: cover;
   background-position: center;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 }
 
 body {
