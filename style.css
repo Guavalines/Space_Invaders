@@ -45,7 +45,8 @@ body {
   height: 100vh;
 }
 
-#hi {
-  font-size: 200px;
+#si {
+  font-size: 60px;
   color: yellowgreen;
+  margin-top: 200px;
 }
