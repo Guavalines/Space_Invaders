@@ -10,3 +10,6 @@ This is a classic arcade game where the player must control a laser cannon to sh
 - document.querySelector
 - Timeout
 - switch case
+
+## Tools
+HTML, CSS, JavaScript
